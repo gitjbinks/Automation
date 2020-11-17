@@ -2,15 +2,11 @@ package com.automatedtest.sample.productPage;
 
 import com.automatedtest.sample.basepage.BasePage;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideDriver;
-import com.codeborne.selenide.SelenideWait;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 import static com.automatedtest.sample.infrastructure.driver.Setup.browser;
 import static com.codeborne.selenide.Selenide.$;

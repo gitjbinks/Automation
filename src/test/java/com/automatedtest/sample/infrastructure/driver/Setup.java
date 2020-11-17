@@ -16,7 +16,6 @@ public class Setup {
     @Before
     public void setWebDriver() {
 
-        //String browser = System.getProperty("browser");
         browser = System.getProperty("browser");
         if (browser == null) {
             browser = "chrome";

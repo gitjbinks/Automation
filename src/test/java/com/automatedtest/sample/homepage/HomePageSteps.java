@@ -36,10 +36,7 @@ public class HomePageSteps {
     @Then("page title contains {string}")
     public void pageTitleIs(String title) {
         String displayedTitle = this.homePage.getTitle();
-        /*Assert.assertTrue("Displayed title is " + displayedTitle + " instead of " + title,
-                title.contains(displayedTitle));*/
         Assert.assertThat(displayedTitle, CoreMatchers.containsString(title));
-
     }
 
     @Step("Search for a item")
