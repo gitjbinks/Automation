@@ -25,6 +25,16 @@ To run tests for chrome browser
 To run test for Firefox Browser
 > mvn -Dbrowser=firefox test
 
+### Browser language
+
+By dafault the automatin will run in Spanicsh browser language
+
+For change the language send the parameter -Dlang from command line
+
+> mvn -Dlang="en-US" test
+
+The browser will be launched in english for both browser, Firefox and Chrome
+
 ## Create the report
 
 To create the report type in command line
