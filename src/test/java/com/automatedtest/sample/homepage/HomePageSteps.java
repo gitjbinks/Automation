@@ -1,14 +1,10 @@
 package com.automatedtest.sample.homepage;
 
-import com.automatedtest.sample.infrastructure.driver.Setup;
-import com.automatedtest.sample.infrastructure.driver.TearDown;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Given;
 import io.qameta.allure.Step;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Test;
 
 public class HomePageSteps {
 
@@ -36,7 +32,7 @@ public class HomePageSteps {
     @Then("page title contains {string}")
     public void pageTitleIs(String title) {
         String displayedTitle = this.homePage.getTitle();
-        Assert.assertThat(displayedTitle, CoreMatchers.containsString(title));
+        Assert.assertTrue(displayedTitle.contains(title));
     }
 
     @Step("Search for a item")
@@ -44,5 +40,4 @@ public class HomePageSteps {
     public void aUserSearchesFor(String searchValue) {
         this.homePage.searchFor(searchValue);
     }
-
 }

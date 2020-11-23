@@ -12,23 +12,30 @@ public class Setup {
 
     public static WebDriver driver;
     public static String browser;
+    public static String lang = System.getProperty("lang");
 
     @Before
     public void setWebDriver() {
-
+        if (lang == null) lang = "es-SP";
         browser = System.getProperty("browser");
         if (browser == null) {
             browser = "chrome";
         }
+
         switch (browser) {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--lang=" + lang);
                 chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
                 driver = new ChromeDriver(chromeOptions);
                 break;
             case "firefox":
-                driver = new FirefoxDriver();
+                FirefoxProfile profile = new FirefoxProfile();
+                profile.setPreference("intl.accept_languages", lang);
+                FirefoxOptions options = new FirefoxOptions();
+                options.setProfile(profile);
+                driver = new FirefoxDriver(options);
                 driver.manage().window().maximize();
                 break;
             default:

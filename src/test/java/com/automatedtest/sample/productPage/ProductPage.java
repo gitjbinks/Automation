@@ -1,6 +1,7 @@
 package com.automatedtest.sample.productPage;
 
 import com.automatedtest.sample.basepage.BasePage;
+import com.automatedtest.sample.infrastructure.driver.Setup;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -42,7 +43,7 @@ public class ProductPage extends BasePage {
         $(price).waitUntil(Condition.visible, 5000);
         String uPrice = price.getText();
         String currency_Price;
-        if (browser.equals("chrome")) {
+        if(Setup.lang.equals("es-SP")) {
             String[] split = uPrice.split(" ");
             currency_Price = split[1];
         } else {

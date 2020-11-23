@@ -1,6 +1,7 @@
 package com.automatedtest.sample.cartPage;
 
 import com.automatedtest.sample.basepage.BasePage;
+import com.automatedtest.sample.infrastructure.driver.Setup;
 import com.automatedtest.sample.productPage.ProductPage;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
@@ -58,64 +59,65 @@ public class CartPage extends BasePage {
 
     Double checkPrice(String point) {
         String price = checkerPoints(point);
-        Double valueToReturn;
-        if (browser.equals("chrome")) {
+        double valueToReturn;
+        if (Setup.lang.equals("es-SP")) {
             String[] currencyAdnPrice = price.split(" ");
             valueToReturn = Double.parseDouble(currencyAdnPrice[1]);
-        } else {
+            } else {
             valueToReturn = Double.parseDouble(price.substring(1));
+           }
+            return valueToReturn;
         }
-        return valueToReturn;
-    }
 
-    Double priceForUnits(int number) {
-        return ProductPage.unitPrice * number;
-    }
-
-    String checkerPoints(String point) {
-        String value;
-        switch (point) {
-            case "footer":
-                value = SubtotalCart.getText();
-                break;
-            case "buyBox":
-                value = BuyBoxSubtotal.getText();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + point);
+        Double priceForUnits ( int number){
+            return ProductPage.unitPrice * number;
         }
-        return value;
-    }
 
-    void updateCartPrice(Double update) {
-        priceUpdated = priceUpdated + update;
-    }
-
-    Double getPriceUpdated() {
-        return priceUpdated = Math.round(priceUpdated * 100.0) / 100.0;
-    }
-
-    public void changeItemNumber(int number) throws InterruptedException {
-        if (browser.equals("chrome")) {
-            $(DropdownFirstItemAdded).waitUntil(Condition.visible, 5000);
-            $(DropdownFirstItemAdded).selectOption(number);
-        } else {
-            String optionNumber = Integer.toString(number);
-            $(DropdownFirstItemAdded).waitUntil(Condition.visible, 5000);
-            Actions actions = new Actions(driver);
-            actions.moveToElement(DropdownFirstItemAdded).click().build().perform();
-            Thread.sleep(2000);
-            WebElement amount = driver.findElement(By.cssSelector("#dropdown1_" + optionNumber));
-            $(amount).click();
+        String checkerPoints (String point){
+            String value;
+            switch (point) {
+                case "footer":
+                    value = SubtotalCart.getText();
+                    break;
+                case "buyBox":
+                    value = BuyBoxSubtotal.getText();
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + point);
+            }
+            return value;
         }
-        Thread.sleep(1000);
-    }
 
-    void updatedCartPrice(int hatMen, int hatWomen) {
-        priceUpdated = (hatMen * firstItemUnitPrice) + (hatWomen * secondItemUnitPrice);
-    }
+        void updateCartPrice (Double update){
+            priceUpdated = priceUpdated + update;
+        }
 
-    public String languageText() {
-        return (browser.equals("chrome")) ? "productos" : "items";
+        Double getPriceUpdated () {
+            return priceUpdated = Math.round(priceUpdated * 100.0) / 100.0;
+        }
+
+        public void changeItemNumber ( int number) throws InterruptedException {
+            if (browser.equals("chrome")) {
+                $(DropdownFirstItemAdded).waitUntil(Condition.visible, 5000);
+                $(DropdownFirstItemAdded).selectOption(number);
+            } else {
+                String optionNumber = Integer.toString(number);
+                $(DropdownFirstItemAdded).waitUntil(Condition.visible, 5000);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(DropdownFirstItemAdded).click().build().perform();
+                Thread.sleep(2000);
+                WebElement amount = driver.findElement(By.cssSelector("#dropdown1_" + optionNumber));
+                $(amount).click();
+            }
+            Thread.sleep(1000);
+        }
+
+        void updatedCartPrice ( int hatMen, int hatWomen){
+            priceUpdated = (hatMen * firstItemUnitPrice) + (hatWomen * secondItemUnitPrice);
+        }
+
+        public String languageText () {
+            //return "productos";
+            return (Setup.lang.equals("es-SP")) ? "productos" : "items";
+        }
     }
-}
